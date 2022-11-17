@@ -4,148 +4,160 @@
     <meta charset="UTF-8" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="src/styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
       integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="src/style.css" />
-    <title>Weather App</title>
+    <title>Document</title>
   </head>
   <body>
-    <div class="container">
-      <div class="weather-app">
-        <div class="weather">
-          <form class="search-form" id="search-form">
-            <div class="row">
-              <div class="col-9">
-                <input
-                  type="search"
-                  placeholder="Enter a city"
-                  autofocus="on"
-                  autocomplete="off"
-                  id="city-input"
-                  class="form-control search-input"
-                />
-              </div>
-              <div class="col-3">
-                <input
-                  type="submit"
-                  value="Search"
-                  id="submit"
-                  class="btn btn-primary shadow-sm w-100"
-                />
-              </div>
-              <!--   <div class="col-3">
-                <button class="btn btn-success w-100" id="current-location">
-                  Current
-                </button>
-              </div>
-            --->
-            </div>
-          </form>
-          <div class="overview">
-            <div class="row">
-              <div class="col-6">
-                <h1 id="city">Paris</h1>
-                <ul class="info">
-                  <li id="description">Clear Sky</li>
-                  <li id="date">Tuesday, 1:05 PM</li>
-                  <li id="day">October 27, 2022</li>
-                </ul>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-8">
-                <div class="d-flex weather-temperature">
-                  <img
-                    src="https://media.istockphoto.com/vectors/cute-flat-sun-icon-vector-id1124567572?k=20&m=1124567572&s=612x612&w=0&h=qA2-ugQviG9uGvpn5-K90sK9w5QZjd3TetULc_5VECc="
-                    alt="Clear"
-                    id="icon"
-                    class="d-flex"
+    <div id="root">
+      <div class="App">
+        <div class="container">
+          <div class="Weather">
+            <form>
+              <div class="row">
+                <div class="col-6">
+                  <input
+                    type="search"
+                    id="city-input"
+                    placeholder="Enter a city"
+                    class="form-control search-input"
                   />
-                  <div class="d-flex">
-                    <strong id="temperature">31</strong
-                    ><span class="units"
-                      ><span id="celsius">°C</span> |<a
-                        href="#"
-                        id="fahrenhiet"
-                      >
-                        °F</a
-                      ></span
-                    >
+                </div>
+                <div class="col-3">
+                  <input
+                    type="submit"
+                    id="submit"
+                    class="btn btn-primary w-100"
+                    value="Search"
+                  />
+                </div>
+                <div class="col-3">
+                  <input
+                    type="button"
+                    class="btn btn-primary w-100"
+                    value="Current"
+                    id="current"
+                  />
+                </div>
+              </div>
+            </form>
+            <div class="WeatherInfo">
+              <div class="row">
+                <div class="col-6">
+                  <h1>
+                    <img
+                      src="https://ssl.gstatic.com/onebox/weather/64/sunny.png"
+                      id="icon"
+                      class="weather-img"
+                    />
+                    <span class="temperature" id="actual-temperature">17</span
+                    ><span class="unit">°C</span>
+                  </h1>
+                  <li id="tempDeets">
+                    <div>
+                      Humidity: <strong><span id="humidity">52</span>%</strong>
+                    </div>
+                    Wind:
+                    <strong><span id="wind">14.06</span>km/h</strong>
+                  </li>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-8">
+                  <div class="city-container d-flex justify-content-end">
+                    <div>
+                      <span class="city" id="city">Paris</span>
+                      <ul>
+                        <li class="info">
+                          <div id="description">Cloudy</div>
+
+                          <div id="date">Thursday, 12:40 PM</div>
+                          <div id="day">November 9, 2022</div>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-6">
-              <ul class="list-desc">
-                <li>Humidity: <span id="humidity">17</span>%</li>
-                <li>Wind: <span id="wind">5</span> m/h</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="WeatherForecast row">
-          <div class="col">
-            <div class="WeatherForecastPreview">
-              <div class="forecast-time">Thu</div>
-              <canvas width="38" height="38"></canvas>
-              <div class="forecast-temperature">
-                <span class="forecast-temperature-max">13°</span
-                ><span class="forecast-temperature-min">9°</span>
+            <div class="WeatherForecast row" id="forecast">
+              <div class="col">
+                <div class="WeatherForecastPreview">
+                  <div class="forecast-time">Fri</div>
+                  <canvas width="38" height="38"></canvas>
+                  <div class="forecast-temperature">
+                    <span class="forecast-temperature-max">15°</span
+                    ><span class="forecast-temperature-min">10°</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="WeatherForecastPreview">
-              <div class="forecast-time">Fri</div>
-              <canvas width="38" height="38"></canvas>
-              <div class="forecast-temperature">
-                <span class="forecast-temperature-max">13°</span
-                ><span class="forecast-temperature-min">9°</span>
+              <div class="col">
+                <div class="WeatherForecastPreview">
+                  <div class="forecast-time">Sat</div>
+                  <canvas width="38" height="38"></canvas>
+                  <div class="forecast-temperature">
+                    <span class="forecast-temperature-max">16°</span
+                    ><span class="forecast-temperature-min">10°</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="WeatherForecastPreview">
-              <div class="forecast-time">Sat</div>
-              <canvas width="38" height="38"></canvas>
-              <div class="forecast-temperature">
-                <span class="forecast-temperature-max">13°</span
-                ><span class="forecast-temperature-min">10°</span>
+              <div class="col">
+                <div class="WeatherForecastPreview">
+                  <div class="forecast-time">Sun</div>
+                  <canvas width="38" height="38"></canvas>
+                  <div class="forecast-temperature">
+                    <span class="forecast-temperature-max">15°</span
+                    ><span class="forecast-temperature-min">9°</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="WeatherForecastPreview">
-              <div class="forecast-time">Sun</div>
-              <canvas width="38" height="38"></canvas>
-              <div class="forecast-temperature">
-                <span class="forecast-temperature-max">13°</span
-                ><span class="forecast-temperature-min">11°</span>
+              <div class="col">
+                <div class="WeatherForecastPreview">
+                  <div class="forecast-time">Mon</div>
+                  <canvas width="38" height="38"></canvas>
+                  <div class="forecast-temperature">
+                    <span class="forecast-temperature-max">15°</span
+                    ><span class="forecast-temperature-min">10°</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="WeatherForecastPreview">
-              <div class="forecast-time">Mon</div>
-              <canvas width="38" height="38"></canvas>
-              <div class="forecast-temperature">
-                <span class="forecast-temperature-max">13°</span
-                ><span class="forecast-temperature-min">9°</span>
+              <div class="col">
+                <div class="WeatherForecastPreview">
+                  <div class="forecast-time">Tue</div>
+                  <canvas width="38" height="38"></canvas>
+                  <div class="forecast-temperature">
+                    <span class="forecast-temperature-max">15°</span
+                    ><span class="forecast-temperature-min">10°</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <small>
-          <a href="https://github.com/riyasnehi/weather" target="_blank"
-            >Open-source code</a
-          >
-          by Riya Snehi
-        </small>
       </div>
+    </div>
+    <div class="weather">
+      <footer>
+        This project was coded by <scan class="name">Riya Snehi</scan>
+        and is
+        <a
+          href="https://github.com/shecodesio/weather"
+          target="_blank"
+          rel="noopener noreferrer"
+          >open-sourced on GitHub</a
+        >
+        and
+        <a
+          href="https://shecodes-weather.netlify.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >hosted on Netlify</a
+        >
+      </footer>
     </div>
     <script src="src/index.js"></script>
   </body>
